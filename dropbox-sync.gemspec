@@ -5,11 +5,16 @@ Gem::Specification.new do |s|
   s.name        = "dropbox-sync"
   s.version     = DropboxSync::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = []
-  s.email       = []
-  s.homepage    = "http://rubygems.org/gems/dropbox-sync"
-  s.summary     = "TODO: Write a gem summary"
-  s.description = "TODO: Write a gem description"
+  s.authors     = ['Willem van Bergen']
+  s.email       = ['willem@railsdoctors.com']
+  s.homepage    = "http://github.com/wvanbergen/dropbox-sync"
+  s.summary     = "Tool to synchronize folders between machiens using Dropbox and symbolic links."
+  s.description = <<-D
+    This tool will create symbolic links in the Dropbox folder to synchronize paths outside of it. This
+    will cause Dropbox to synchronize the content with your Dropbox account. This tool can then be used
+    on a different machine (with the same Dropbox account) to recreate the symbolic links and setup
+    synchronization between your machines.
+  D
 
   s.required_rubygems_version = ">= 1.3.6"
 
