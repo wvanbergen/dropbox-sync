@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+# encoding: UTF-8
+$LOAD_PATH.unshift(File.expand_path('../lib', File.dirname(__FILE__)))
+
+require 'rubygems'
+require 'dropbox_sync'
+
+DropboxSync::CLI.start

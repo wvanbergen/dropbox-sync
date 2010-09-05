@@ -1,0 +1,69 @@
+= dropbox-sync
+
+dropbox-sync is a simple command line tool to setup syncing files and directories outside of your Dropbox folders using symlinks.
+This is especially useful for applications for which you want to synchronize data between different machines, but the application 
+expects it files to be on a certain location. This tool will create a symlink in your <tt>~/Dropbox/Sync</tt> folder to any path
+you specify. Dropbox will follow this link and synchronize the contents of the original location. This tool can then setup these
+links easily on other machines as well to complete your synchronization setup.
+
+== Installation
+
+    gem install dropbox-sync
+
+== Warnings
+
+This tool is tested on Mac OSX 10.6. It should work on other OSX versions and Linux too, but this is untested. Before using the 
+tool, always wait until Dropbox finishes syncing everything, and then close the Dropbox application. This will make sure Dropbox 
+does not interfere with this tools operations and the other way around.
+
+Final note: not every application is suitable for this synchronization using Dropbox.
+
+== Usage example
+
+Say, you want to synchronize your Address Book contacts on Mac OS X. First, use this tool to synchronize the Address Book 
+folder: <tt>~/Library/Application Support/AddressBook</tt>. Run the following command:
+
+    dropbox-sync sync "~/Library/Application Support/AddressBook"
+
+This will create a symlink <tt>~/Dropbox/Sync/AddressBook</tt>. Dropbox will start uploading the contents of the folder to 
+your Dropbox account.
+
+On the other machine, wait until Dropbox finishes synchronizing and then quit the application. Instead of a symlink, Dropbox
+will have created a folder called <tt>~/Dropbox/Sync/AddressBook</tt> with all the contents in it. The folder needs to be 
+moved to the original location in <tt>~/Library</tt> so Address Book picks it up. Moreover, we also want to create a 
+symlink on this machine, so any changes on this machine will be synced to Dropbox as well. Run the following command:
+
+    dropbox-sync setup
+
+This will move the folder fro  the <tt>~/Dropbox/Sync</tt> folder to the original location and create a symlink instead.
+Note that usually, there will already a local AddressBook folder around in <tt>~/Library/Application Support</tt>. This
+folder will be moved to <tt>~/Library/Application Support/AddressBook.local_backup</tt> so you won't lose it. You can 
+always move this folder back into it's original location to get your local Address Book back.
+
+The setup command can be run every time there is a change to your Dropbox configuration. It will only setup links that
+have not yet been set up before on the machine.
+
+== Other commands and options
+
+=== <tt>dropbox-sync list</tt>
+
+This will display a list of all the files and directories that are currently being synced.
+
+=== <tt>dropbox-sync unsync <path></tt>
+
+This will "forget" the sync link between your local path and the Dropbox path. The files will be kept both locally
+and on Dropbox.
+
+=== <tt>dropbox-sync destroy <path></tt>
+
+This will destroy the sync link between your local path and the Dropbox path. Your local files will be kept around,
+but they will be removed from Dropbox.
+
+=== <tt>--dropbox-dir <path></tt>
+
+If you are not using the default <tt>~/Dropbox</tt> folder on your system, you should provide the <tt>--dropbox-dir 
+<dropbox-path></tt>  option to every command.
+
+== License
+
+MIT.
